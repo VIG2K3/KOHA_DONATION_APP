@@ -1,0 +1,66 @@
+# ============================
+# Android Studio & Gradle Build
+# ============================
+
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/app/build
+/captures
+.externalNativeBuild
+.cxx
+
+# ============================
+# Gradle Wrapper
+# ============================
+
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+
+# ============================
+# Firebase
+# ============================
+
+# Firebase local emulator data
+/firebase-debug.log
+/firebase-debug.*
+.firebaserc
+.firebase/
+functions/node_modules/
+functions/lib/
+functions/.env
+functions/.firebase/
+functions/.runtimeconfig.json
+
+# ============================
+# OS and Editor Junk Files
+# ============================
+
+# macOS
+*.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# JetBrains / IntelliJ
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/vcs.xml
+.idea/httpRequests
+.idea/caches
+.idea/shelf
+
+# ============================
+# Log Files
+# ============================
+
+*.log
