@@ -98,9 +98,9 @@ public class MakeDonationFragment extends Fragment {
                 //Use getActivity() to get the FragmentManager from the hosting activity
                 getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(
                         R.anim.slide_in_left, // enter animation
-                        R.anim.slide_out_left, // exit animation
+                        R.anim.slide_out_right, // exit animation
                         R.anim.slide_in_left, // popEnter animation (coming back)
-                        R.anim.slide_out_left//popExit animation (going back)
+                        R.anim.slide_out_right//popExit animation (going back)
                         )
                         .replace(R.id.frame_layout, homeFragment).addToBackStack(null)
                         .commit();

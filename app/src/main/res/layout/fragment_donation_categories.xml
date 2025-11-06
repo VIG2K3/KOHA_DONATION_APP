@@ -1,23 +1,69 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    tools:context=".DonationCategoriesFragment">
 
-    <TextView
-        android:id="@+id/textViewData"
-        android:layout_width="wrap_content"
+    <!-- Top bar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Loading donation categories..."
-        android:textSize="16sp"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        android:padding="8dp" />
+        android:layout_gravity="top"
+        android:paddingTop="30dp"
+        android:paddingHorizontal="20dp">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewCategories"
+        <!-- Back Arrow -->
+        <ImageView
+            android:id="@+id/back_arrow"
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:layout_alignParentStart="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="8dp"
+            android:src="@drawable/backarrow_icon"
+            android:contentDescription="Back"
+            app:tint="@color/orange"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="50dp"
+            android:text="Donation Categories"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@color/orange" />
+    </RelativeLayout>
+
+    <!-- Scrollable content -->
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:ignore="MissingClass" />
-</LinearLayout>
+        android:layout_marginTop="100dp"
+        android:paddingHorizontal="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageViewTable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:contentDescription="Donation categories table"
+                android:src="@drawable/donation_categories_table" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>
