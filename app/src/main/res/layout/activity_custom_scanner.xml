@@ -1,0 +1,22 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- ZXing scanner view -->
+    <com.journeyapps.barcodescanner.DecoratedBarcodeView
+        android:id="@+id/barcode_scanner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <!-- Close Button -->
+    <Button
+        android:id="@+id/closeButton"
+        android:text="✕"
+        android:textSize="20sp"
+        android:background="@android:color/transparent"
+        android:textColor="@color/orange"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
+</RelativeLayout>

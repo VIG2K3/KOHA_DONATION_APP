@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bottom_home"
+        android:title="Home"
+        android:icon="@drawable/home" />
+
+    <item
+        android:id="@+id/rewards"
+        android:title="MyRewards"
+        android:icon="@drawable/reward" />
+
+    <item
+        android:id="@+id/location"
+        android:title="Location"
+        android:icon="@drawable/location" />
+
+    <item
+        android:id="@+id/service"
+        android:title="ServiceRequest"
+        android:icon="@drawable/service" />
+</menu>

@@ -1,0 +1,65 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue"
+    tools:context=".RewardDash">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/clothTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="36sp"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/orange"
+        android:layout_centerHorizontal="true" />
+
+    <!-- Reward Image inside Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/clothCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/clothTitle"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="6dp">
+
+        <ImageView
+            android:id="@+id/clothImage"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:scaleType="centerCrop" />
+    </androidx.cardview.widget.CardView>
+
+    <!-- Description -->
+    <TextView
+        android:id="@+id/rewardDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/clothCard"
+        android:layout_marginTop="16dp"
+        android:padding="16dp"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <!-- Redeem Button -->
+    <Button
+        android:id="@+id/redeemButton"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rewardDescription"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/orange"
+        android:padding="12dp"
+        android:text="Redeem"
+
+        android:textColor="@color/white"
+        app:cornerRadius="10dp" />
+
+
+</RelativeLayout>

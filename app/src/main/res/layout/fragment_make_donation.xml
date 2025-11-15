@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue"
+    tools:context=".MakeDonationFragment">
+
+    <!-- Top bar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:paddingTop="30dp"
+        android:paddingHorizontal="20dp">
+
+        <!-- Back Arrow -->
+        <ImageView
+            android:id="@+id/back_arrow"
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:layout_alignParentStart="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="8dp"
+            android:src="@drawable/backarrow_icon"
+            android:contentDescription="Back"
+            app:tint="@color/orange"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <!-- Page Title -->
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_centerInParent="true"
+            android:text="Make Donation"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@color/orange" />
+    </RelativeLayout>
+
+    <!-- Scrollable content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+        android:clipToPadding="false"
+        android:paddingBottom="100dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="20dp">
+
+            <!-- White Card Container -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/white_card"
+                android:padding="20dp"
+                android:gravity="center_horizontal">
+
+                <!-- Photo Upload -->
+                <ImageView
+                    android:id="@+id/photo_icon"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="30dp"
+                    android:src="@drawable/photo_icon"
+                    android:contentDescription="Upload Photo" />
+
+                <!-- Add Items -->
+                <EditText
+                    android:id="@+id/add_items"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:padding="12dp"
+                    android:background="@drawable/custom_edittext"
+                    android:textColorHint="@color/black"
+                    android:hint="Add Items"
+                    android:textColor="@color/black" />
+
+                <!-- Pick-up Location -->
+                <EditText
+                    android:id="@+id/PickUp_Location"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:padding="12dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/custom_edittext"
+                    android:textColorHint="@color/black"
+                    android:hint="Pick-up Location"
+                    android:textColor="@color/black" />
+
+                <!-- Pick-up Time -->
+                <EditText
+                    android:id="@+id/PickUp_Time"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:padding="12dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/custom_edittext"
+                    android:textColorHint="@color/black"
+                    android:hint="Pick-up Time"
+                    android:textColor="@color/black" />
+
+                <!-- Submit Button -->
+                <Button
+                    android:id="@+id/submit_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="40dp"
+                    android:backgroundTint="@color/orange"
+                    android:text="Submit"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:cornerRadius="20dp"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

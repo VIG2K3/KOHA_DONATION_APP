@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/blue">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/kohaPoints"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="18dp"
+            android:text="KO-POINTS: 0"
+            android:textColor="@color/orange"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toStartOf="@+id/kohaImage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/textPoint"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Claim Your Points Now!"
+            android:textSize="15sp"
+            android:layout_marginStart="18dp"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/kohaPoints"
+            app:layout_constraintEnd_toStartOf="@+id/kohaImage"/>
+
+        <ImageView
+            android:id="@+id/kohaImage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/koha"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/kohaPoints"
+            android:layout_marginEnd="16dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Scrollable Rewards List -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:paddingTop="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- KFC Reward -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/kfcCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardElevation="8dp"
+                app:cardCornerRadius="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:background="@color/white">
+
+                    <ImageView
+                        android:id="@+id/kfcImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/kfc"/>
+
+                    <TextView
+                        android:id="@+id/kfcText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="(RM 10 KFC Coupon - 100 KP)"
+                        android:textSize="20sp"
+                        android:textColor="@color/orange"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="8dp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- TNG Reward -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/tngCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardElevation="8dp"
+                app:cardCornerRadius="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:background="@color/white">
+
+                    <ImageView
+                        android:id="@+id/tngImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/tng"/>
+
+                    <TextView
+                        android:id="@+id/tngText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="(RM 100 TNG TOPUP - 500 KP)"
+                        android:textSize="20sp"
+                        android:textColor="@color/orange"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="8dp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- XOX Reward -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/xoxCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardElevation="8dp"
+                app:cardCornerRadius="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:background="@color/white">
+
+                    <ImageView
+                        android:id="@+id/xoxImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/xox"/>
+
+                    <TextView
+                        android:id="@+id/xoxText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="(RM 30 XOX TOPUP - 200 KP)"
+                        android:textSize="20sp"
+                        android:textColor="@color/orange"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="8dp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Grab Reward -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/grabCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardElevation="8dp"
+                app:cardCornerRadius="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:background="@color/white">
+
+                    <ImageView
+                        android:id="@+id/grabImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/grab"/>
+
+                    <TextView
+                        android:id="@+id/grabText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="(RM 30 Grab Coupon - 300 KP)"
+                        android:textSize="20sp"
+                        android:textColor="@color/orange"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="8dp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- DIY Reward -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/diyCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardElevation="8dp"
+                app:cardCornerRadius="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:background="@color/white">
+
+                    <ImageView
+                        android:id="@+id/diyImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/diy"/>
+
+                    <TextView
+                        android:id="@+id/diyText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="(RM 50 DIY Voucher - 400 KP)"
+                        android:textSize="20sp"
+                        android:textColor="@color/orange"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="8dp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Lotus Reward -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/lotusCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardElevation="8dp"
+                app:cardCornerRadius="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:background="@color/white">
+
+                    <ImageView
+                        android:id="@+id/lotusImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/lotus"/>
+
+                    <TextView
+                        android:id="@+id/lotusText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="(RM 20 Lotus Voucher - 400 KP)"
+                        android:textSize="20sp"
+                        android:textColor="@color/orange"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="40dp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+

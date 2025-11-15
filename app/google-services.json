@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "714701093711",
+    "project_id": "koha-signup-login",
+    "storage_bucket": "koha-signup-login.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:714701093711:android:c711709ea8fefae0d9233a",
+        "android_client_info": {
+          "package_name": "com.example.dashboardtest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGFMFaAMsAVboa8BaaEe1i0xu7O5WbFJk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:714701093711:android:7de76b3458e69313d9233a",
+        "android_client_info": {
+          "package_name": "com.example.kohasignuplogin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGFMFaAMsAVboa8BaaEe1i0xu7O5WbFJk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

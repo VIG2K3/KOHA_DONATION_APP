@@ -1,0 +1,17 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/orange"
+        android:fontFamily="times"
+        android:lineSpacingExtra="6dp"
+        android:gravity="center_horizontal"
+        android:text="About Us:\n\nKoha is a simple and modern donation app that makes giving easier and more rewarding. Users can donate their pre-loved items by dropping them off at our centres or requesting a pickup from their location.\n\nOnce donations are verified, users earn points that can be redeemed for rewards. The app also features a built-in map to find nearby centres, a QR system for claiming points, and a profile section for managing user details.\n\nKoha aims to build a more sustainable and responsible community by making the donation process convenient, accessible, and meaningful." />
+
+</ScrollView>
