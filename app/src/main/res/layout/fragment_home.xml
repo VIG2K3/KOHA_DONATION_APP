@@ -9,7 +9,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="0dp">
+        android:padding="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -86,8 +86,9 @@
                     android:layout_height="70dp"
                     android:backgroundTint="@color/orange"
                     android:text="Make Donation"
+                    android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="19sp"
+                    android:textSize="20sp"
                     app:cornerRadius="20dp" />
 
                 <Button
@@ -97,8 +98,9 @@
                     android:layout_marginTop="12dp"
                     android:backgroundTint="@color/orange"
                     android:text="Donation Categories"
+                    android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="19sp"
+                    android:textSize="20sp"
                     app:cornerRadius="20dp" />
 
             </LinearLayout>
