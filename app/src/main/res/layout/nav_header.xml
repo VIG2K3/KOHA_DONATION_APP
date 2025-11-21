@@ -8,25 +8,53 @@
     android:padding="16dp"
     android:background="@drawable/bg2">
 
-    <ImageView
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:src="@drawable/profile"/>
+    <!-- Row with Profile Image and Refresh Button -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/navProfileImage"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/profile"
+            android:layout_marginEnd="8dp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <!-- Refresh Button -->
+        <ImageView
+            android:id="@+id/nav_refresh_btn"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginLeft="23dp"
+            android:src="@drawable/refresh"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginStart="8dp"/>
+
+
+    </LinearLayout>
 
     <TextView
+        android:id="@+id/navUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NEESH_03"
         android:textSize="15sp"
         android:textColor="@color/white"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"/>
 
     <TextView
+        android:id="@+id/navEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="vigneesh03@gmail.com"
         android:textColor="@color/white"
         android:textSize="15sp"
         android:layout_marginBottom="16dp"/>
-
 </LinearLayout>

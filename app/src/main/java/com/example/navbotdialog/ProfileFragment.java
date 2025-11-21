@@ -13,168 +13,175 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProfileFragment extends Fragment {
 
-    private EditText etUsername, etEmail, etNumber;
-    private Button btnSave;
-    private ImageView profileImage, changePhotoBtn;
+    private static final int PICK_IMAGE_REQUEST = 1001;
 
-    private FirebaseUser currentUser;
-    private DatabaseReference userRef;
-    private StorageReference storageRef;
+    private ImageView profileImage;
+    private EditText usernameField, phoneField, emailField;
+    private Button updateButton;
 
-    private static final int PICK_IMAGE_REQUEST = 1;
-    private Uri imageUri;
+    private FirebaseAuth auth;
+    private FirebaseFirestore firestore;
+    private FirebaseStorage storage;
+
+    private Uri selectedImageUri;
 
     public ProfileFragment() {}
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        // 🔹 Bind UI
-        etUsername = view.findViewById(R.id.etUsername);
-        etEmail = view.findViewById(R.id.etEmail);
-        etNumber = view.findViewById(R.id.etNumber);
-        btnSave = view.findViewById(R.id.btnSave);
+        // Initialize fields
         profileImage = view.findViewById(R.id.profileImage);
-        changePhotoBtn = view.findViewById(R.id.changePhotoBtn);
+        usernameField = view.findViewById(R.id.etUsername);
+        phoneField = view.findViewById(R.id.etNumber);
+        emailField = view.findViewById(R.id.etEmail);
+        emailField.setEnabled(false); // Email cannot be edited
+        updateButton = view.findViewById(R.id.btnSave);
 
-        // 🔹 Firebase setup
-        currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser == null) {
-            Toast.makeText(getActivity(), "Please log in first", Toast.LENGTH_SHORT).show();
-            return view;
-        }
+        auth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
+        storage = FirebaseStorage.getInstance();
 
-        String uid = currentUser.getUid();
-        userRef = FirebaseDatabase.getInstance().getReference("Users").child(uid);
-        storageRef = FirebaseStorage.getInstance().getReference("profile_images/" + uid + ".jpg");
+        loadUserData();
 
-        // 🔹 Load existing user data
-        loadUserProfile();
-
-        // 🔹 Save button
-        btnSave.setOnClickListener(v -> saveProfile());
-
-        // 🔹 Change photo
-        changePhotoBtn.setOnClickListener(v -> openFileChooser());
+        profileImage.setOnClickListener(v -> chooseImage());
+        updateButton.setOnClickListener(v -> updateUserData());
 
         return view;
     }
 
-    // 🔹 Load user info from Firebase
-    private void loadUserProfile() {
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (!isAdded()) return;
+    private void loadUserData() {
+        FirebaseUser user = auth.getCurrentUser();
+        if (user == null) return;
 
-                if (snapshot.exists()) {
-                    String username = snapshot.child("username").getValue(String.class);
-                    String email = snapshot.child("email").getValue(String.class);
-                    String phone = snapshot.child("phone").getValue(String.class);
-                    String imageUrl = snapshot.child("imageUrl").getValue(String.class);
+        String uid = user.getUid();
 
-                    etUsername.setText(username);
-                    etEmail.setText(email);
-                    etNumber.setText(phone);
+        firestore.collection("Users").document(uid)
+                .get()
+                .addOnSuccessListener(document -> {
+                    if (document.exists()) {
+                        usernameField.setText(document.getString("username"));
+                        phoneField.setText(document.getString("phone"));
+                        emailField.setText(user.getEmail()); // always show email
 
-                    if (imageUrl != null && !imageUrl.isEmpty()) {
-                        Picasso.get()
-                                .load(imageUrl)
-                                .placeholder(R.drawable.profile)
-                                .error(R.drawable.profile)
-                                .into(profileImage);
+                        String imageUrl = document.getString("profileImageUrl");
+                        if (imageUrl != null && !imageUrl.isEmpty()) {
+                            Glide.with(requireContext())
+                                    .load(imageUrl)
+                                    .circleCrop()
+                                    .into(profileImage);
+                        }
                     }
-                } else {
-                    etEmail.setText(currentUser.getEmail());
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                if (isAdded())
-                    Toast.makeText(getContext(), "Failed to load profile", Toast.LENGTH_SHORT).show();
-            }
-        });
+                })
+                .addOnFailureListener(e ->
+                        Toast.makeText(getContext(), "Failed to load profile", Toast.LENGTH_SHORT).show()
+                );
     }
 
-    // 🔹 Open image picker
-    private void openFileChooser() {
+    private void chooseImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+        startActivityForResult(Intent.createChooser(intent, "Select Profile Image"), PICK_IMAGE_REQUEST);
     }
 
-    // 🔹 Handle chosen image
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
-            imageUri = data.getData();
-            profileImage.setImageURI(imageUri);
-            uploadImageToFirebase();
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
+            selectedImageUri = data.getData();
+            profileImage.setImageURI(selectedImageUri);
         }
     }
 
-    // 🔹 Upload profile image to Firebase Storage
-    private void uploadImageToFirebase() {
-        if (imageUri == null) return;
+    private void updateUserData() {
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+        if (firebaseUser == null) return;
 
-        UploadTask uploadTask = storageRef.putFile(imageUri);
+        String uid = firebaseUser.getUid();
 
-        uploadTask.addOnSuccessListener(taskSnapshot ->
-                storageRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                    String imageUrl = uri.toString();
-                    userRef.child("imageUrl").setValue(imageUrl)
-                            .addOnSuccessListener(aVoid ->
-                                    Toast.makeText(getContext(), "Profile picture updated!", Toast.LENGTH_SHORT).show())
-                            .addOnFailureListener(e ->
-                                    Toast.makeText(getContext(), "Failed to update image URL", Toast.LENGTH_SHORT).show());
-                })
-        ).addOnFailureListener(e ->
-                Toast.makeText(getContext(), "Upload failed: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-    }
+        String username = usernameField.getText().toString().trim();
+        String phone = phoneField.getText().toString().trim();
 
-    // 🔹 Save text info to Firebase Database
-    private void saveProfile() {
-        String username = etUsername.getText().toString().trim();
-        String email = etEmail.getText().toString().trim();
-        String phone = etNumber.getText().toString().trim();
-
-        if (TextUtils.isEmpty(username) || TextUtils.isEmpty(email)) {
-            Toast.makeText(getActivity(), "Name and Email required", Toast.LENGTH_SHORT).show();
+        // 🔹 Validate username and phone
+        if (TextUtils.isEmpty(username)) {
+            usernameField.setError("Username cannot be empty");
+            usernameField.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(phone)) {
+            phoneField.setError("Phone number cannot be empty");
+            phoneField.requestFocus();
             return;
         }
 
-        userRef.child("username").setValue(username);
-        userRef.child("email").setValue(email);
-        userRef.child("phone").setValue(phone)
-                .addOnSuccessListener(unused ->
-                        Toast.makeText(getActivity(), "Profile updated successfully", Toast.LENGTH_SHORT).show())
+        Map<String, Object> map = new HashMap<>();
+        map.put("username", username);
+        map.put("phone", phone);
+
+        firestore.collection("Users").document(uid)
+                .set(map, SetOptions.merge())
+                .addOnSuccessListener(a -> {
+                    Toast.makeText(requireContext(), "Profile updated successfully", Toast.LENGTH_SHORT).show();
+
+                    // 🔹 Refresh drawer header immediately
+                    if (getActivity() instanceof MainActivity) {
+                        ((MainActivity) getActivity()).refreshDrawerHeader();
+                    }
+                })
                 .addOnFailureListener(e ->
-                        Toast.makeText(getActivity(), "Failed to update: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                        Toast.makeText(requireContext(), "Failed to update profile", Toast.LENGTH_SHORT).show()
+                );
+
+        // Upload profile image if selected
+        if (selectedImageUri != null) {
+            uploadProfileImage(uid);
+        }
+    }
+
+    private void uploadProfileImage(String uid) {
+        if (selectedImageUri == null) return;
+
+        StorageReference ref = storage.getReference("profile_images/" + uid + "/profile.jpg");
+
+        ref.putFile(selectedImageUri)
+                .addOnSuccessListener(taskSnapshot ->
+                        ref.getDownloadUrl().addOnSuccessListener(uri -> {
+                            firestore.collection("Users")
+                                    .document(uid)
+                                    .update("profileImageUrl", uri.toString())
+                                    .addOnSuccessListener(a -> {
+                                        Toast.makeText(getContext(), "Profile image updated", Toast.LENGTH_SHORT).show();
+                                        // 🔹 Update drawer header immediately
+                                        if (getActivity() instanceof MainActivity) {
+                                            ((MainActivity) getActivity()).refreshDrawerHeader();
+                                        }
+                                    })
+                                    .addOnFailureListener(e ->
+                                            Toast.makeText(getContext(), "Failed to save image URL", Toast.LENGTH_SHORT).show());
+                        })
+                )
+                .addOnFailureListener(e ->
+                        Toast.makeText(getContext(), "Upload failed: " + e.getMessage(), Toast.LENGTH_SHORT).show()
+                );
     }
 }

@@ -10,6 +10,9 @@ import android.widget.EditText;
 import android.widget.Button;
 import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FieldValue;
+
 import org.json.JSONObject;
 import java.io.OutputStream;
 import java.io.InputStream;
@@ -17,6 +20,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Random;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -26,10 +31,9 @@ public class SignUpActivity extends AppCompatActivity {
     private TextView loginRedirectText;
 
     private String generatedOtp;
-    private long otpGeneratedTime; // store when OTP was generated
-    private static final long OTP_VALID_DURATION = 2 * 60 * 1000; // 2 minutes
+    private long otpGeneratedTime;
+    private static final long OTP_VALID_DURATION = 2 * 60 * 1000;
 
-    // Replace with your deployed Cloud Function URL
     private static final String CLOUD_FUNCTION_URL =
             "https://us-central1-koha-signup-login.cloudfunctions.net/sendOtpEmail";
 
@@ -48,6 +52,9 @@ public class SignUpActivity extends AppCompatActivity {
         getOtpButton = findViewById(R.id.get_otp_button);
         loginRedirectText = findViewById(R.id.loginRedirectText);
 
+        EditText signupUsername = findViewById(R.id.signup_username);
+        EditText signupPhone = findViewById(R.id.signup_phone);
+
         // 🔸 GET OTP button
         getOtpButton.setOnClickListener(view -> {
             String email = signupEmail.getText().toString().trim();
@@ -57,7 +64,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
 
             generatedOtp = String.format("%06d", new Random().nextInt(999999));
-            otpGeneratedTime = System.currentTimeMillis(); // record generation time
+            otpGeneratedTime = System.currentTimeMillis();
             sendOtpToCloud(email, generatedOtp);
         });
 
@@ -66,6 +73,9 @@ public class SignUpActivity extends AppCompatActivity {
             String user = signupEmail.getText().toString().trim();
             String pass = signupPassword.getText().toString().trim();
             String otpInput = signupOtp.getText().toString().trim();
+
+            String username = signupUsername.getText().toString().trim();
+            String phone = signupPhone.getText().toString().trim();
 
             if (user.isEmpty()) {
                 signupEmail.setError("Email cannot be empty");
@@ -92,9 +102,27 @@ public class SignUpActivity extends AppCompatActivity {
             auth.createUserWithEmailAndPassword(user, pass)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
+
+                            String uid = auth.getCurrentUser().getUid();
+
+                            Map<String, Object> userData = new HashMap<>();
+                            userData.put("email", user);
+                            userData.put("username", username);
+                            userData.put("phone", phone);
+                            userData.put("profileImageUrl", "");
+
+                            FirebaseFirestore.getInstance()
+                                    .collection("Users")
+                                    .document(uid)
+                                    .set(userData)
+                                    .addOnSuccessListener(a -> Log.d(TAG, "User profile saved"))
+                                    .addOnFailureListener(e -> Log.e(TAG, "Error saving profile", e));
+                            // ----------------------------------------------------
+
                             Toast.makeText(this, "Sign Up Successful!", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
                             finish();
+
                         } else {
                             Toast.makeText(this, "Sign Up Failed: " +
                                     task.getException().getMessage(), Toast.LENGTH_LONG).show();
@@ -129,8 +157,6 @@ public class SignUpActivity extends AppCompatActivity {
                 os.close();
 
                 int responseCode = conn.getResponseCode();
-
-                // ✅ Use manual InputStream reading for compatibility
                 InputStream is = (responseCode >= 200 && responseCode < 300)
                         ? conn.getInputStream()
                         : conn.getErrorStream();

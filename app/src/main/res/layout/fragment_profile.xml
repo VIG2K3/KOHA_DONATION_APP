@@ -2,60 +2,49 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/blue"
-    android:padding="24dp">
+    android:padding="24dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:paddingTop="80dp"> <!-- push content down -->
+        android:paddingTop="80dp">
 
-
-        <ImageView
-            android:id="@+id/profileImage"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="8dp"
-            android:contentDescription="Profile picture"
-            android:src="@drawable/profile" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginBottom="24dp">
-
-            <TextView
-                android:id="@+id/tvEditProfile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="EDIT PROFILE"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="25sp"
-                android:layout_marginStart="8dp"/>
+        <!-- Profile Image Container -->
+        <FrameLayout
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="16dp">
 
             <ImageView
-                android:id="@+id/changePhotoBtn"
-                android:layout_width="40dp"
-                android:layout_height="35dp"
-                android:src="@drawable/upload"
-                android:drawablePadding="844dp"
-                android:contentDescription="Change photo"/>
+                android:id="@+id/profileImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:background="@drawable/profile"
+                android:contentDescription="Profile picture" />
+        </FrameLayout>
 
-        </LinearLayout>
+        <!-- Header -->
+        <TextView
+            android:id="@+id/tvEditProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EDIT PROFILE"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:layout_marginBottom="24dp"/>
 
         <!-- Username -->
         <EditText
             android:id="@+id/etUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username"
+            android:hint="Enter username"
             android:padding="12dp"
             android:background="@drawable/bg_border"
             android:textColor="@color/black"
@@ -67,29 +56,29 @@
             android:id="@+id/etNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Phone Number"
+            android:hint="Enter phone number"
             android:padding="12dp"
             android:background="@drawable/bg_border"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
-            android:layout_marginBottom="10dp"
-            app:cornerRadius="20dp"/>
+            android:layout_marginBottom="10dp"/>
 
+        <!-- Email -->
 
+        <!-- Save Button -->
         <!-- Email -->
         <EditText
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email Address"
             android:padding="12dp"
             android:background="@drawable/bg_border"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:layout_marginBottom="24dp"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:enabled="false" />
 
-        <!-- Save Button -->
         <Button
             android:id="@+id/btnSave"
             android:layout_width="match_parent"
@@ -100,6 +89,5 @@
             android:padding="15dp"
             android:textStyle="bold"
             app:cornerRadius="20dp"/>
-
     </LinearLayout>
 </ScrollView>

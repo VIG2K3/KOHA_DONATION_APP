@@ -10,7 +10,9 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ImageView; // NEW
 import android.widget.LinearLayout;
+import android.widget.TextView; // NEW
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -23,11 +25,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide; // NEW
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.firebase.auth.FirebaseUser; // NEW
+import com.google.firebase.firestore.FirebaseFirestore; // NEW
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     BottomNavigationView bottomNavigationView;
     BottomAppBar bottomAppBar;
+    NavigationView navigationView; // NEW
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -47,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         fab = findViewById(R.id.fab);
         drawerLayout = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view); // UPDATED
         Toolbar toolbar = findViewById(R.id.toolbar);
         bottomAppBar = findViewById(R.id.bottomAppBar);
 
@@ -57,6 +63,18 @@ public class MainActivity extends AppCompatActivity {
                 R.string.open_nav, R.string.close_nav);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
+        // 🔹 Load drawer header data initially
+        refreshDrawerHeader();
+
+        // Add click listener for the refresh button in nav header
+        View headerView = navigationView.getHeaderView(0);
+        ImageView refreshBtn = headerView.findViewById(R.id.nav_refresh_btn);
+        refreshBtn.setOnClickListener(v -> {
+            Toast.makeText(MainActivity.this, "Refreshing...", Toast.LENGTH_SHORT).show();
+            refreshDrawerHeader();
+        });
+
 
         // Default Fragment
         if (savedInstanceState == null) {
@@ -190,5 +208,41 @@ public class MainActivity extends AppCompatActivity {
         dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
 
-}
+    // 🔹 NEW: Refresh drawer header dynamically
+    public void refreshDrawerHeader() {
+        if (navigationView == null) return;
 
+        View headerView = navigationView.getHeaderView(0);
+        ImageView navProfileImage = headerView.findViewById(R.id.navProfileImage);
+        TextView navUsername = headerView.findViewById(R.id.navUsername);
+        TextView navEmail = headerView.findViewById(R.id.navEmail);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) return;
+
+        navEmail.setText(user.getEmail());
+
+        String uid = user.getUid();
+        FirebaseFirestore.getInstance().collection("Users").document(uid)
+                .get()
+                .addOnSuccessListener(document -> {
+                    if (document.exists()) {
+                        String username = document.getString("username");
+                        String profileUrl = document.getString("profileImageUrl");
+
+                        if (username != null && !username.isEmpty()) {
+                            navUsername.setText(username);
+                        }
+
+                        if (profileUrl != null && !profileUrl.isEmpty()) {
+                            Glide.with(MainActivity.this)
+                                    .load(profileUrl)
+                                    .circleCrop()
+                                    .into(navProfileImage);
+                        }
+                    }
+                });
+    }
+
+
+}

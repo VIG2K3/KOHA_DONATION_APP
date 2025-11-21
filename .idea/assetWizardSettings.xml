@@ -308,7 +308,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$PROJECT_DIR$/../../../../Android/sdk/icons/material/materialicons/card_giftcard/baseline_card_giftcard_24.xml" />
+                                      <entry key="url" value="file:/$PROJECT_DIR$/../../../../Android/sdk/icons/material/materialsymbolsoutlined/eye_tracking/outline_eye_tracking_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -318,8 +318,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="e16c3b" />
-                            <entry key="outputName" value="ic_redeem" />
+                            <entry key="outputName" value="eye_closed" />
                             <entry key="sourceFile" value="C:\Users\VIGNEESH GPL\AndroidStudio\DashboardTest" />
                           </map>
                         </option>

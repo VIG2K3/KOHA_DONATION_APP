@@ -59,6 +59,7 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
     implementation("com.squareup.picasso:picasso:2.8")
+    implementation("jp.wasabeef:picasso-transformations:2.4.0")
 
     // OSM
     implementation("org.osmdroid:osmdroid-android:6.1.10")
