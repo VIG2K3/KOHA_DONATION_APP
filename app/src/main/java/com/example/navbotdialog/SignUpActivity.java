@@ -5,21 +5,24 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FieldValue;
 
 import org.json.JSONObject;
+
 import java.io.OutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Random;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -77,25 +80,12 @@ public class SignUpActivity extends AppCompatActivity {
             String username = signupUsername.getText().toString().trim();
             String phone = signupPhone.getText().toString().trim();
 
-            if (user.isEmpty()) {
-                signupEmail.setError("Email cannot be empty");
-                return;
-            }
-            if (pass.isEmpty()) {
-                signupPassword.setError("Password cannot be empty");
-                return;
-            }
-            if (otpInput.isEmpty()) {
-                signupOtp.setError("Enter the OTP");
-                return;
-            }
-            if (!otpInput.equals(generatedOtp)) {
-                signupOtp.setError("Invalid OTP");
-                return;
-            }
+            if (user.isEmpty()) { signupEmail.setError("Email cannot be empty"); return; }
+            if (pass.isEmpty()) { signupPassword.setError("Password cannot be empty"); return; }
+            if (otpInput.isEmpty()) { signupOtp.setError("Enter the OTP"); return; }
+            if (!otpInput.equals(generatedOtp)) { signupOtp.setError("Invalid OTP"); return; }
             if (System.currentTimeMillis() - otpGeneratedTime > OTP_VALID_DURATION) {
-                signupOtp.setError("OTP expired. Please request a new one.");
-                return;
+                signupOtp.setError("OTP expired. Please request a new one."); return;
             }
 
             // ✅ Create Firebase user
@@ -105,6 +95,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                             String uid = auth.getCurrentUser().getUid();
 
+                            // Firestore profile
                             Map<String, Object> userData = new HashMap<>();
                             userData.put("email", user);
                             userData.put("username", username);
@@ -117,7 +108,17 @@ public class SignUpActivity extends AppCompatActivity {
                                     .set(userData)
                                     .addOnSuccessListener(a -> Log.d(TAG, "User profile saved"))
                                     .addOnFailureListener(e -> Log.e(TAG, "Error saving profile", e));
-                            // ----------------------------------------------------
+
+                            // -------------------------- NEW --------------------------
+                            // Initialize points in Realtime Database
+                            DatabaseReference usersRef = FirebaseDatabase.getInstance(
+                                            "https://koha-user-points.asia-southeast1.firebasedatabase.app/")
+                                    .getReference("users");
+
+                            usersRef.child(uid).child("points").setValue(0)
+                                    .addOnSuccessListener(unused -> Log.d(TAG, "Points initialized for new user"))
+                                    .addOnFailureListener(e -> Log.e(TAG, "Failed to initialize points", e));
+                            // ----------------------------------------------------------
 
                             Toast.makeText(this, "Sign Up Successful!", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
@@ -136,7 +137,6 @@ public class SignUpActivity extends AppCompatActivity {
         );
     }
 
-    // 📧 Send OTP to Firebase Cloud Function
     private void sendOtpToCloud(String email, String otp) {
         new Thread(() -> {
             HttpURLConnection conn = null;

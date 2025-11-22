@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -6,17 +6,19 @@
     <com.journeyapps.barcodescanner.DecoratedBarcodeView
         android:id="@+id/barcode_scanner"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
-    <!-- Close Button -->
+    <!-- Close Button overlay -->
     <Button
         android:id="@+id/closeButton"
         android:text="✕"
         android:textSize="20sp"
+        android:textStyle="bold"
         android:background="@android:color/transparent"
         android:textColor="@color/orange"
-        android:layout_alignParentEnd="true"
+        android:layout_gravity="top|end"
         android:layout_margin="16dp"
         android:layout_width="50dp"
-        android:layout_height="50dp"/>
-</RelativeLayout>
+        android:layout_height="50dp" />
+
+</FrameLayout>

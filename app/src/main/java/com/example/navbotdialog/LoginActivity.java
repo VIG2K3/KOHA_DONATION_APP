@@ -12,10 +12,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth auth;
@@ -35,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.login_button);
         signupRedirectText = findViewById(R.id.loginRedirectText);
         loginWithOTPText = findViewById(R.id.loginWithOTPText);
-        forgotPasswordText = findViewById(R.id.forgotPasswordText); // Make sure this ID exists in XML!
+        forgotPasswordText = findViewById(R.id.forgotPasswordText); 
 
         // ---- Normal Email-Password Login ----
         loginButton.setOnClickListener(view -> {
@@ -46,8 +52,29 @@ public class LoginActivity extends AppCompatActivity {
                 if (!pass.isEmpty()) {
                     auth.signInWithEmailAndPassword(email, pass)
                             .addOnSuccessListener(authResult -> {
+
+                                String uid = auth.getCurrentUser().getUid();
+                                // Safe points initialization
+                                DatabaseReference usersRef = FirebaseDatabase.getInstance(
+                                                "https://koha-user-points.asia-southeast1.firebasedatabase.app/")
+                                        .getReference("users");
+                                usersRef.child(uid).child("points").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (!snapshot.exists()) {
+                                            // Only set 0 if points node doesn't exist
+                                            usersRef.child(uid).child("points").setValue(0);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                        // Optional: handle error
+                                    }
+                                });
+
                                 Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(LoginActivity.this,com.example.navbotdialog.MainActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, com.example.navbotdialog.MainActivity.class);
                                 startActivity(intent);
                                 finish();
                             })
@@ -74,8 +101,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         // ---- Forgot Password ----
-        TextView forgotPasswordText = findViewById(R.id.forgotPasswordText);
-
         forgotPasswordText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
