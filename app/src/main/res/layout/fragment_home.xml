@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:backgroundTint="@color/blue"
-                    app:cardCornerRadius="5dp"
+                    app:cardCornerRadius="8dp"
                     app:cardElevation="5dp"
                     app:cardUseCompatPadding="true">
 
@@ -89,7 +89,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    app:cornerRadius="20dp" />
+                    app:cornerRadius="30dp" />
 
                 <Button
                     android:id="@+id/donation_category_button"
@@ -101,7 +101,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    app:cornerRadius="20dp" />
+                    app:cornerRadius="30dp" />
 
             </LinearLayout>
 

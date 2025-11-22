@@ -84,7 +84,7 @@
                     android:padding="12dp"
                     android:background="@drawable/custom_edittext"
                     android:textColorHint="@color/black"
-                    android:hint="Enter Items Description"
+                    android:hint="Enter Item(s) Description"
                     android:textColor="@color/black" />
 
                 <!-- Pick-up Location -->
