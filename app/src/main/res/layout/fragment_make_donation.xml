@@ -81,7 +81,7 @@
                     android:id="@+id/add_items"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:padding="12dp"
+                    android:padding="1dp"
                     android:background="@drawable/custom_edittext"
                     android:textColorHint="@color/black"
                     android:hint="Add Items"

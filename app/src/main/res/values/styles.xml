@@ -1,0 +1,13 @@
+<resources>
+    <!-- Define your custom color -->
+    <color name="orange_accent">#FF9800</color>
+
+    <style name="CustomDatePickerDialogTheme" parent="android:Theme.Holo.Light.Dialog">
+        <item name="android:colorAccent">@color/orange_accent</item>
+    </style>
+
+    <style name="CustomTimePickerDialogTheme" parent="android:Theme.Holo.Light.Dialog">
+        <item name="android:colorAccent">@color/orange_accent</item>
+    </style>
+
+</resources>
