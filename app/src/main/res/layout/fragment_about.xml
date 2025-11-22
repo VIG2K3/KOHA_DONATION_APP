@@ -11,7 +11,7 @@
         android:textColor="@color/orange"
         android:fontFamily="times"
         android:lineSpacingExtra="6dp"
-        android:gravity="center_horizontal"
-        android:text="About Us:\n\nKoha is a simple and modern donation app that makes giving easier and more rewarding. Users can donate their pre-loved items by dropping them off at our centres or requesting a pickup from their location.\n\nOnce donations are verified, users earn points that can be redeemed for rewards. The app also features a built-in map to find nearby centres, a QR system for claiming points, and a profile section for managing user details.\n\nKoha aims to build a more sustainable and responsible community by making the donation process convenient, accessible, and meaningful." />
+        android:gravity="center"
+        android:text="About Us:\n\nKoha is a simple and modern donation app that makes giving easier and more rewarding. Users can donate their pre-loved items by dropping them off at our centres or requesting a pickup from their location.Once donations are verified, users earn points that can be redeemed for rewards.\n\nKoha aims to build a more sustainable and responsible community by making the donation process convenient, accessible, and meaningful.\n\nCustomer Care Hotline (24 hours):\n1 400 88 6677 (within Malaysia) " />
 
 </ScrollView>

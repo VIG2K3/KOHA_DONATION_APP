@@ -88,6 +88,6 @@
             android:backgroundTint="@color/orange"
             android:padding="15dp"
             android:textStyle="bold"
-            app:cornerRadius="20dp"/>
+            app:cornerRadius="30dp"/>
     </LinearLayout>
 </ScrollView>

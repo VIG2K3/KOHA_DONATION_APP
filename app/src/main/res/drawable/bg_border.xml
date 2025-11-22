@@ -7,7 +7,7 @@
 
     <!-- Orange border -->
     <stroke
-        android:width="3dp"
+        android:width="4dp"
         android:color="@color/blue" />
 
     <!-- Rounded corners -->
