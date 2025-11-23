@@ -45,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginTop="5dp"
-        android:text="Send OTP"
+        android:text="Request OTP"
         android:backgroundTint="@color/blue"
         app:cornerRadius="20dp"/>
 
