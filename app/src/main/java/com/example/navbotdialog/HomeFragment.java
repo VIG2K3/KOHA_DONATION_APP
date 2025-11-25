@@ -51,7 +51,7 @@ public class HomeFragment extends Fragment {
 
         uid = FirebaseAuth.getInstance().getUid();
         if (uid != null) {
-            // 🔹 Connect to your secondary database explicitly
+            // Connect to your secondary database explicitly
             userPointsRef = FirebaseDatabase.getInstance(
                             "https://koha-user-points.asia-southeast1.firebasedatabase.app/"
                     )
@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment {
                     .child(uid)
                     .child("points");
 
-            // 🔹 Listen for live KO points
+            // Listen for live KO points
             userPointsRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -83,7 +83,7 @@ public class HomeFragment extends Fragment {
                 }
             });
 
-            // 🔹 Generate QR code from UID
+            // Generate QR code from UID
             try {
                 BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
                 Bitmap bitmap = barcodeEncoder.encodeBitmap(uid, BarcodeFormat.QR_CODE, 400, 400);

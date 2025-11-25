@@ -58,7 +58,7 @@ public class SignUpActivity extends AppCompatActivity {
         EditText signupUsername = findViewById(R.id.signup_username);
         EditText signupPhone = findViewById(R.id.signup_phone);
 
-        // 🔸 GET OTP button
+        // GET OTP button
         getOtpButton.setOnClickListener(view -> {
             String email = signupEmail.getText().toString().trim();
             if (email.isEmpty()) {
@@ -71,7 +71,7 @@ public class SignUpActivity extends AppCompatActivity {
             sendOtpToCloud(email, generatedOtp);
         });
 
-        // 🔹 SIGN UP button
+        // SIGN UP button
         signupButton.setOnClickListener(view -> {
             String user = signupEmail.getText().toString().trim();
             String pass = signupPassword.getText().toString().trim();
@@ -88,7 +88,7 @@ public class SignUpActivity extends AppCompatActivity {
                 signupOtp.setError("OTP expired. Please request a new one."); return;
             }
 
-            // ✅ Create Firebase user
+            // Create Firebase user profile
             auth.createUserWithEmailAndPassword(user, pass)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
@@ -110,7 +110,6 @@ public class SignUpActivity extends AppCompatActivity {
                                     .addOnSuccessListener(a -> Log.d(TAG, "User profile saved"))
                                     .addOnFailureListener(e -> Log.e(TAG, "Error saving profile", e));
 
-                            // -------------------------- NEW --------------------------
                             // Initialize points in Realtime Database
                             DatabaseReference usersRef = FirebaseDatabase.getInstance(
                                             "https://koha-user-points.asia-southeast1.firebasedatabase.app/")
@@ -119,7 +118,6 @@ public class SignUpActivity extends AppCompatActivity {
                             usersRef.child(uid).child("points").setValue(0)
                                     .addOnSuccessListener(unused -> Log.d(TAG, "Points initialized for new user"))
                                     .addOnFailureListener(e -> Log.e(TAG, "Failed to initialize points", e));
-                            // ----------------------------------------------------------
 
                             Toast.makeText(this, "Sign Up Successful!", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
@@ -132,7 +130,7 @@ public class SignUpActivity extends AppCompatActivity {
                     });
         });
 
-        // 🔸 Redirect to Login
+        // Redirect to Login
         loginRedirectText.setOnClickListener(view ->
                 startActivity(new Intent(SignUpActivity.this, LoginActivity.class))
         );

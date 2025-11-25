@@ -33,11 +33,9 @@ public class ProfileFragment extends Fragment {
     private ImageView profileImage;
     private EditText usernameField, phoneField, emailField;
     private Button updateButton;
-
     private FirebaseAuth auth;
     private FirebaseFirestore firestore;
     private FirebaseStorage storage;
-
     private Uri selectedImageUri;
 
     public ProfileFragment() {}
@@ -122,7 +120,7 @@ public class ProfileFragment extends Fragment {
         String username = usernameField.getText().toString().trim();
         String phone = phoneField.getText().toString().trim();
 
-        // 🔹 Validate username and phone
+        // Validate username and phone
         if (TextUtils.isEmpty(username)) {
             usernameField.setError("Username cannot be empty");
             usernameField.requestFocus();
@@ -143,7 +141,7 @@ public class ProfileFragment extends Fragment {
                 .addOnSuccessListener(a -> {
                     Toast.makeText(requireContext(), "Profile updated successfully", Toast.LENGTH_SHORT).show();
 
-                    // 🔹 Refresh drawer header immediately
+                    // Refresh drawer header immediately
                     if (getActivity() instanceof MainActivity) {
                         ((MainActivity) getActivity()).refreshDrawerHeader();
                     }
@@ -171,7 +169,7 @@ public class ProfileFragment extends Fragment {
                                     .update("profileImageUrl", uri.toString())
                                     .addOnSuccessListener(a -> {
                                         Toast.makeText(getContext(), "Profile image updated", Toast.LENGTH_SHORT).show();
-                                        // 🔹 Update drawer header immediately
+                                        // Update drawer header immediately
                                         if (getActivity() instanceof MainActivity) {
                                             ((MainActivity) getActivity()).refreshDrawerHeader();
                                         }

@@ -116,7 +116,7 @@ public class LocationFragment extends Fragment {
         mLocationOverlay.setDrawAccuracyEnabled(true);
         mapView.getOverlays().add(mLocationOverlay);
 
-        // Sample shop data
+        // Sample center location data
         shops.add(new Shop("Koha Centre(1)", "Lot 31, Sunshine Mall, Jalan Thean Tek,\n11500 Air Itam, Penang", 5.39852, 100.28689, "Air Itam"));
         shops.add(new Shop("Koha Centre(2)", "Lot 100, QueensBay Mall Jalan Bayan Indah,\n11900 Bayan Lepas, Penang", 5.334255, 100.306686, "Bayan Lepas"));
         shops.add(new Shop("Koha Centre(3)", "Lot 182, 1st Avenue Mall, Jalan Magazine,\n10300 George Town, Penang", 5.41335, 100.33126, "Georgetown"));
@@ -276,7 +276,7 @@ public class LocationFragment extends Fragment {
         public void onClose() {}
     }
 
-    // OSRM route fetcher
+    // OSRM route fetcher Geopoint
     private class FetchRouteTask extends AsyncTask<Void, Void, List<GeoPoint>> {
         private final GeoPoint start, end;
         private final Button toggleButton;

@@ -64,7 +64,8 @@ public class RewardsFragment extends Fragment {
             kohaPoints.setText("KO-POINTS: 0");
         }
 
-        // ---------------------- Reward Cards ----------------------
+        // Reward Cards
+
         // KFC Reward
         CardView kfcCard = view.findViewById(R.id.kfcCard);
         kfcCard.setOnClickListener(v -> openReward("KFC (100 KO-Points)", R.drawable.kfc));
