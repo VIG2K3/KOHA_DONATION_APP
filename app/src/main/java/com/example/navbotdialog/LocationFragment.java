@@ -41,7 +41,6 @@ import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
 
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -67,7 +66,7 @@ public class LocationFragment extends Fragment {
         Configuration.getInstance().setUserAgentValue(requireContext().getPackageName());
         View view = inflater.inflate(R.layout.fragment_location, container, false);
 
-        // Map setup
+        // Map setup A
         mapView = view.findViewById(R.id.mapView);
         mapView.setTileSource(TileSourceFactory.MAPNIK);
         mapView.setMultiTouchControls(true);
@@ -90,7 +89,7 @@ public class LocationFragment extends Fragment {
                 100.180  // west
         );
 
-        // Set center roughly around Jelutong/Bayan Baru (midpoint between George Town & Queensbay)
+        // Set center roughly around Jelutong/Bayan Baru (midpoint between George Town & Queensbay) A
         GeoPoint centerPoint = new GeoPoint(5.360, 100.300);
 
         // Slightly closer zoom to show both halves clearly
@@ -104,13 +103,13 @@ public class LocationFragment extends Fragment {
 
         mapView.invalidate();
 
-        // Compass (top-left)
+        // Compass (top-left) A
         compassOverlay = new CompassOverlay(requireContext(), mapView);
         compassOverlay.enableCompass();
         compassOverlay.setEnabled(true);
         mapView.getOverlays().add(compassOverlay);
 
-        // User location
+        // User location A
         mLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(requireContext()), mapView);
         mLocationOverlay.enableMyLocation();
         mLocationOverlay.setDrawAccuracyEnabled(true);
@@ -184,7 +183,7 @@ public class LocationFragment extends Fragment {
         }
     }
 
-    // Add marker
+    // Add marker A
     private void addMarker(Shop shop) {
         GeoPoint point = new GeoPoint(shop.latitude, shop.longitude);
         Marker marker = new Marker(mapView);
@@ -276,7 +275,7 @@ public class LocationFragment extends Fragment {
         public void onClose() {}
     }
 
-    // OSRM route fetcher Geopoint
+    // OSRM route fetcher Geopoint A
     private class FetchRouteTask extends AsyncTask<Void, Void, List<GeoPoint>> {
         private final GeoPoint start, end;
         private final Button toggleButton;
