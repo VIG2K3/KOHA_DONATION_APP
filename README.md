@@ -1,3 +1,14 @@
+About App:
+
+KOHA comes from the Maori term, “gift” or “donation”. It is a mobile application that makes charitable giving 
+more engaging, convenient, and rewarding. KOHA lets users donate unused and pre-loved items to charity 
+centres through two options: Koha Stations and Doorstep Pick Up. Each donation gives users points, which 
+can then be redeemed for vouchers from partner stores. Other features include a map for viewing nearby Koha 
+Stations, donation request tracking, and a customisable profile. The goal of KOHA is to create an efficient and 
+sustainable donation environment which will increase social responsibility and assist NGOs in their cause.
+
+How to Install:
+
 1. Download the ZIP file from GitHub.
 2. Unzip the file.
 3. Open the file in Android Studio and run the code.
