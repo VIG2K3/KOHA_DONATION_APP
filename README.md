@@ -1,8 +1,7 @@
 About App:
+KOHA  is a mobile application that makes charitable giving more engaging, convenient, and rewarding. KOHA lets users donate unused and pre-loved items to charity centres through two options: Koha Stations and Doorstep Pick Up. Each donation gives users points, which can then be redeemed for vouchers from partner stores. Other features include a map for viewing nearby Koha Stations, donation request tracking, and a customisable profile. The goal of KOHA is to create an efficient and sustainable donation environment that will increase social responsibility and support NGOs in their causes.
 
-KOHA comes from the Maori term, “gift” or “donation”. It is a mobile application that makes charitable giving more engaging, convenient, and rewarding. KOHA lets users donate unused and pre-loved items to charity centres through two options: Koha Stations and Doorstep Pick Up. Each donation gives users points, which can then be redeemed for vouchers from partner stores. Other features include a map for viewing nearby Koha Stations, donation request tracking, and a customisable profile. The goal of KOHA is to create an efficient and sustainable donation environment that will increase social responsibility and support NGOs in their causes.
-
-
+How To Run:
 1. Open the file in Android Studio and run the code.
 2. If it shows any error messages, try switching the Gradle JDK version to ms-17.
     1. To do that, go to settings and select SDK Manager
